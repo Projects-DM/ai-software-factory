@@ -1,0 +1,47 @@
+%% toolchain.mmd
+%% F0-S6 — Toolchain conceptual de AI Software Factory.
+%% Coherente con F0-S4 (arquitectura) + F0-S5 (workflow) + F0-S6 (tooling).
+%% ACTUAL = verificado hoy. FUTURO = diferido, no implementado.
+%% El tooling sirve a la arquitectura; no la define.
+
+flowchart LR
+    subgraph ACTUAL_SUB["ACTUAL — Phase A: Local Foundation"]
+        direction LR
+        HUMAN["Human<br/>autoridad final"]
+        TASK["Task<br/>unidad de trabajo"]
+        OC["OpenCode<br/>entorno asistido + supervisión humana"]
+        TOOLS["Tools<br/>capacidades técnicas, sin autoridad"]
+        REPO["Repository<br/>documentos + código"]
+        VAL["Validation<br/>humana"]
+        GIT["Git<br/>versiones + soporte de recuperación"]
+        GH["GitHub<br/>PR + revisión + merge"]
+        HUMAN --> TASK
+        TASK --> OC
+        OC --> TOOLS
+        TOOLS --> REPO
+        REPO --> VAL
+        VAL --> GIT
+        GIT --> GH
+    end
+
+    subgraph FUTURO_SUB["FUTURO — Phases B→E (no implementado)"]
+        direction LR
+        CI["GitHub<br/>CI/CD"]
+        AUTO["Automation<br/>validación automatizada"]
+        ASK["Agents<br/>responsabilidades acotadas"]
+        SKF["Skills formalizadas<br/>procedimientos validados"]
+        ORCH["Orchestration<br/>coordina, no sustituye"]
+        OBS["Observability<br/>evidencia continua"]
+        REM["Remote Supervision<br/>autonomía condicionada"]
+        CI --> AUTO
+        AUTO --> ASK
+        ASK --> SKF
+        SKF --> ORCH
+        ORCH --> OBS
+        OBS --> REM
+    end
+
+    GH -. "evolución con evidencia" .-> CI
+
+    style ACTUAL_SUB fill:#0d3b2e,stroke:#1a7f37,color:#ffffff
+    style FUTURO_SUB fill:#333333,stroke:#888888,color:#ffffff,stroke-dasharray: 5 5
