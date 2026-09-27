@@ -1,0 +1,110 @@
+%% task-lifecycle.mmd
+%% F0-S5 — Modelo canónico de estados de Task.
+%% Representa visualmente el mismo modelo descrito en
+%% DEVELOPMENT-LIFECYCLE.md, TASK-LIFECYCLE.md, HUMAN-GATES.md
+%% y TRACEABILITY.md, con la misma nomenclatura de estados.
+%% Las actividades conceptuales (REQUEST, PLAN, EXECUTE, TEST,
+%% REVIEW, INTEGRATE, DEPLOY, VALIDATE, RECOVER) se describen
+%% en los documentos del lifecycle y no son estados.
+%% Los Human Gates (◆) son condicionales: solo aplican cuando
+%% corresponden según riesgo, autoridad, incertidumbre, impacto,
+%% irreversibilidad o sensibilidad. No todos los Tasks requieren
+%% todos los gates. Son puntos de decisión/autorización
+%% asociados a transiciones, no estados: Human Gate ≠ Task State.
+%% WAITING_HUMAN se reactiva en el estado apropiado según decisión
+%% registrada (las salidas dibujadas son ejemplos, no matriz exhaustiva).
+%% CLOSED es cierre administrativo, no fase operativa.
+%% Diseño conceptual-operativo. No es especificación de implementación.
+
+flowchart TB
+    DRAFT["DRAFT<br/>solicitud enunciada"]
+    PLANNED["PLANNED<br/>plan + criterios"]
+    READY["READY<br/>precondiciones + Rules"]
+    IMPLEMENTING["IMPLEMENTING<br/>ejecución acotada"]
+    IMPLEMENTED["IMPLEMENTED<br/>cambio producido"]
+    TESTING["TESTING<br/>contraste"]
+    REVIEW["REVIEW<br/>revisión"]
+    CERTIFIED["CERTIFIED<br/>aprobado"]
+    PR["PR<br/>propuesta + CI"]
+    MERGED["MERGED<br/>merge verificado"]
+    DEPLOYED["DEPLOYED<br/>despliegue verificado"]
+    COMPLETED["COMPLETED<br/>traza cerrada"]
+
+    DRAFT --> PLANNED
+    PLANNED --> READY
+    READY --> IMPLEMENTING
+    IMPLEMENTING --> IMPLEMENTED
+    IMPLEMENTED --> TESTING
+    TESTING --> REVIEW
+    REVIEW --> CERTIFIED
+    CERTIFIED --> PR
+    PR --> MERGED
+    MERGED --> DEPLOYED
+    DEPLOYED --> COMPLETED
+
+    FAILED["FAILED<br/>condición no cumplida"]
+    RECOVERING["RECOVERING<br/>diagnóstico + recuperación"]
+    BLOCKED["BLOCKED<br/>causa externa"]
+    WAITING_HUMAN["WAITING_HUMAN<br/>puerta / escalado"]
+    CHANGES_REQUESTED["CHANGES_REQUESTED<br/>devolución con observaciones"]
+    CANCELLED["CANCELLED<br/>decisión explícita"]
+    CLOSED["CLOSED<br/>archivo administrativo"]
+
+    IMPLEMENTING -. falla .-> FAILED
+    IMPLEMENTED -. validación en contra .-> FAILED
+    TESTING -. veredicto negativo .-> FAILED
+    PR -. CI en rojo .-> FAILED
+    DEPLOYED -. verificación fallida .-> FAILED
+
+    FAILED --> RECOVERING
+    BLOCKED --> RECOVERING
+    RECOVERING -- retorno según contexto --> TESTING
+    RECOVERING -- retorno según contexto --> IMPLEMENTING
+    RECOVERING --> WAITING_HUMAN
+
+    BLOCKED --> WAITING_HUMAN
+    BLOCKED -- tras revalidar precondiciones --> READY
+
+    REVIEW -- observaciones corregibles --> CHANGES_REQUESTED
+    CHANGES_REQUESTED --> IMPLEMENTING
+    REVIEW -. condición realmente fallida .-> FAILED
+    MERGED -. verificación posterior fallida .-> FAILED
+
+    DRAFT --> WAITING_HUMAN
+    PLANNED --> WAITING_HUMAN
+    READY --> WAITING_HUMAN
+    TESTING --> WAITING_HUMAN
+    REVIEW --> WAITING_HUMAN
+    CERTIFIED --> WAITING_HUMAN
+    WAITING_HUMAN -- "p. ej.: reanudar" --> READY
+    WAITING_HUMAN -- "p. ej.: replanificar" --> PLANNED
+    WAITING_HUMAN --> CANCELLED
+
+    DRAFT --> CANCELLED
+    PLANNED --> CANCELLED
+    READY --> CANCELLED
+    IMPLEMENTING --> CANCELLED
+    TESTING --> CANCELLED
+    REVIEW --> CANCELLED
+    CERTIFIED --> CANCELLED
+    CANCELLED --> CLOSED
+    COMPLETED --> CLOSED
+
+    HG1["◆ Human Gate:<br/>plan + criterios"]
+    HG2["◆ Human Gate:<br/>riesgo / autoridad"]
+    HG3["◆ Human Gate:<br/>integración / despliegue"]
+
+    PLANNED -. "gate condicional: si aplica" .-> HG1 -. "autoriza" .-> READY
+    IMPLEMENTING -. "gate condicional: si aplica" .-> HG2 -. "autoriza" .-> IMPLEMENTED
+    CERTIFIED -. "gate condicional: si aplica" .-> HG3 -. "autoriza" .-> PR
+
+    style DRAFT fill:#333333,stroke:#888888,color:#ffffff
+    style COMPLETED fill:#1a7f37,stroke:#0d5c25,color:#ffffff
+    style FAILED fill:#a40e26,stroke:#660a18,color:#ffffff
+    style RECOVERING fill:#9e6a03,stroke:#684400,color:#ffffff
+    style BLOCKED fill:#9e6a03,stroke:#684400,color:#ffffff
+    style WAITING_HUMAN fill:#1f6feb,stroke:#0d419d,color:#ffffff
+    style CANCELLED fill:#555555,stroke:#333333,color:#ffffff
+    style HG1 fill:#1f6feb,stroke:#0d419d,color:#ffffff,stroke-dasharray: 5 5
+    style HG2 fill:#1f6feb,stroke:#0d419d,color:#ffffff,stroke-dasharray: 5 5
+    style HG3 fill:#1f6feb,stroke:#0d419d,color:#ffffff,stroke-dasharray: 5 5
