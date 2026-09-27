@@ -1,0 +1,66 @@
+%% ai-software-factory-architecture.mmd
+%% F0-S4 — Arquitectura conceptual de AI Software Factory.
+%% Referencia conceptual, no especificación de implementación.
+%% Documentos: docs/02-architecture/SYSTEM-OVERVIEW.md y COMPONENTS.md.
+
+flowchart TB
+    subgraph FACTORY["FACTORY — cómo construimos software"]
+        direction TB
+        HUMAN["C01 HUMAN<br/>autoridad final"]
+        TASK["C02 TASK<br/>unidad de trabajo"]
+        RULES["C03 RULES<br/>límites y criterios"]
+        ORCH["C04 ORCHESTRATOR<br/>coordina, no sustituye"]
+        AGENTS["C05 AGENTS<br/>responsabilidades acotadas"]
+        CTX["C06 CONTEXT / KNOWLEDGE<br/>mínimo necesario"]
+        SKILLS["C07 SKILLS<br/>procedimientos validados"]
+        TOOLS["C08 TOOLS<br/>sin autoridad propia"]
+        EXEC["C09 EXECUTION<br/>acotada y observable"]
+        VALID["C10 VALIDATION<br/>ejecutar ≠ éxito"]
+        EVID["C11 EVIDENCE<br/>prueba verificable"]
+        TRACE["C12 TRACEABILITY<br/>extremo a extremo"]
+        MEAS["C14 MEASUREMENT<br/>comparar, no celebrar"]
+        EVO["C15 EVOLUTION<br/>versionada y aprobada"]
+        REC["C13 RECOVERY<br/>transversal"]
+
+        HUMAN --> TASK
+        TASK --> RULES
+        RULES --> ORCH
+        ORCH --> AGENTS
+        ORCH --> CTX
+        CTX --> AGENTS
+        AGENTS --> SKILLS
+        SKILLS --> TOOLS
+        TOOLS --> EXEC
+        EXEC --> VALID
+        VALID --> EVID
+        EVID --> TRACE
+        TRACE --> MEAS
+        MEAS --> EVO
+        EVO -. actualiza con aprobación .-> RULES
+        EVO -. actualiza con aprobación .-> SKILLS
+        EVO -. actualiza con aprobación .-> AGENTS
+
+        EXEC -. fallo .-> REC
+        VALID -. rechazo .-> REC
+        REC -. recupera o escala .-> HUMAN
+        REC -. reintento solo si seguro .-> EXEC
+
+        HUMAN -. Human Gate: define y prioriza .-> TASK
+        HUMAN -. Human Gate: autoriza delegación .-> RULES
+        HUMAN -. Human Gate: aprueba irreversible .-> ORCH
+        HUMAN -. Human Gate: aprueba evolución .-> EVO
+    end
+
+    subgraph PRODUCT["PRODUCT — qué debe hacer el software"]
+        direction TB
+        PILOT["Producto piloto futuro<br/>independiente de SGC-DM"]
+    end
+
+    FACTORY -. construye con la Factory .-> PRODUCT
+
+    style HUMAN fill:#1f6feb,stroke:#0d419d,color:#ffffff
+    style VALID fill:#9e6a03,stroke:#684400,color:#ffffff
+    style EVID fill:#9e6a03,stroke:#684400,color:#ffffff
+    style TRACE fill:#9e6a03,stroke:#684400,color:#ffffff
+    style REC fill:#a40e26,stroke:#660a18,color:#ffffff
+    style PRODUCT fill:#333333,stroke:#888888,color:#ffffff,stroke-dasharray: 5 5
