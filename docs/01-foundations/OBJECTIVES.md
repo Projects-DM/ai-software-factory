@@ -183,7 +183,7 @@ La Factory debe funcionar progresivamente como:
 - entorno de aprendizaje;
 - sistema de mejora continua.
 
-El desarrollador (Human / Technical Director) no es un operador a
+El desarrollador (autoridad humana) no es un operador a
 sustituir, sino el beneficiario del aprendizaje: cada ciclo debe dejarlo
 con mejor criterio, mejores especificaciones y mejores decisiones, además
 de mejor producto.

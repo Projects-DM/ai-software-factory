@@ -66,7 +66,7 @@ de código.
 
 Se distinguen los siguientes actores. No tienen la misma autoridad.
 
-### Human / Technical Director
+### Human (autoridad humana final)
 
 Persona responsable del sistema. Define objetivos, prioridades,
 arquitectura, permisos, criterios de aceptación, riesgos, excepciones y
@@ -158,7 +158,7 @@ Principio aplicable: Capability ≠ Authority. Ver `SCOPE-BOUNDARIES.md`.
 
 ## 7. Control humano
 
-El humano (Human / Technical Director) conserva el control sobre:
+La autoridad humana final conserva el control sobre:
 
 - objetivos
 - prioridades
