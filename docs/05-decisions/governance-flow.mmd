@@ -1,0 +1,45 @@
+%% governance-flow.mmd
+%% F0-S7 — Flujo conceptual de gobernanza de decisiones y cambios.
+%% Representa el modelo de GOVERNANCE.md y CHANGE-GOVERNANCE.md.
+%% Estados de decisión: PROPOSED, UNDER REVIEW, ACCEPTED, IMPLEMENTED,
+%% VALIDATED, REJECTED, SUPERSEDED, DEPRECATED.
+%% Modelo CONCEPTUAL. No es arquitectura técnica ni automatización.
+%% Decision ≠ Authorization: decidir no es autorizar; ambas quedan registradas.
+
+flowchart TB
+    PROP["Proposal<br/>contexto + problema + opciones"]
+    CLASS["Classification<br/>C01→C06 según impacto"]
+    REV["Review<br/>criterios + evidencia"]
+    DEC["Decision"]
+    AUTH["Authorization<br/>autoridad + alcance + registro"]
+    IMPL["Implementation<br/>solo lo autorizado"]
+    VAL["Validation<br/>IMPLEMENTED ≠ VALIDATED"]
+    EVID["Evidence<br/>prueba externa al cambio"]
+    REC["Record<br/>traza versionada"]
+    EVOL["Review / Evolution<br/>Keep / Modify / Supersede / Deprecate"]
+
+    PROP --> CLASS
+    CLASS --> REV
+    REV --> DEC
+    DEC --> AUTH
+    AUTH --> IMPL
+    IMPL --> VAL
+    VAL --> EVID
+    EVID --> REC
+    REC --> EVOL
+    EVOL -. "nueva decisión" .-> PROP
+
+    REV -. "rechazo" .-> REJ["REJECTED<br/>con justificación"]
+    REV -. "fuera de autoridad" .-> ESC["Escalate<br/>STOP → decisor superior"]
+    ESC --> DEC
+    DEC -. "desviación temporal autorizada" .-> EXC["Exception<br/>alcance + duración + revisión"]
+    EXC --> REV
+    EVOL -. "supersede / deprecate" .-> SUP["SUPERSEDED / DEPRECATED<br/>historial preservado"]
+
+    style PROP fill:#333333,stroke:#888888,color:#ffffff
+    style DEC fill:#1f6feb,stroke:#0d419d,color:#ffffff
+    style VAL fill:#9e6a03,stroke:#684400,color:#ffffff
+    style EVID fill:#9e6a03,stroke:#684400,color:#ffffff
+    style REJ fill:#a40e26,stroke:#660a18,color:#ffffff
+    style ESC fill:#a40e26,stroke:#660a18,color:#ffffff
+    style SUP fill:#555555,stroke:#333333,color:#ffffff
