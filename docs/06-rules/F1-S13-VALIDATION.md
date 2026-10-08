@@ -1,10 +1,9 @@
 # F1-S13-VALIDATION — Validación integral de F1 Rules
 
 Sprint: F1-S13. Fecha: 2026-10-04. Versión: v0.1. Estado:
-READY_FOR_HUMAN_REVIEW (no CERTIFIED; la certificación es decisión
-humana explícita posterior, §34). Rama `operativo` limpia; F1-S1…S12
-integrados vía merges #57–#59, #61, #72–#79. Sin modificaciones a
-sprints (read-only salvo estos 2 artefactos).
+VALIDATED (revisión humana posterior: PR #80). Rama `operativo`
+limpia; F1-S1…S12 integrados vía merges #57–#59, #61, #72–#79. Sin
+modificaciones a sprints (read-only salvo estos 2 artefactos).
 
 ## Metodología y alcance
 
@@ -53,11 +52,22 @@ R-CC-008; S07→R-AH-004/005/006; S08→R-GB-011/R-SP-009; S09→R-GE-001…
 ## Blockers: 0. Warnings (4, no bloqueantes)
 
 W1 Q-lists F1-S10/S12 derivadas del spec (documentado). W2 wraps de
-línea normalizados durante sprints (cosmético, resuelto). W3 F1-S13
-untracked pendiente de flujo humano. W4 certificación pendiente de
-decisión humana explícita (§34).
+línea normalizados durante sprints (cosmético, resuelto). W3
+resuelta (artefactos integrados; la mención histórica a "untracked"
+describía el estado previo a la integración). W4 resuelta
+(decisión humana explícita: PR #80, ver Certificación).
+
+## Certificación (PR #80)
+
+Decisión humana registrada: PR `#80 — F1: Certification and
+Closure of Rules Phase` — *"F1 Rules is formally CERTIFIED."*
+Commit de cierre `0faf3b8`, merge `8bf2cff`. Alcance: marco
+normativo y documental de F1; no activa Rules (siguen PROPOSED),
+no implementa capacidades, no declara la Factory completa. F2
+habilitada como siguiente fase gobernada.
 
 ## Gate
 
-VALIDATION PASS + BLOCKERS 0 → HUMAN REVIEW → FINAL HUMAN DECISION
-→ (PASS ⇒ F1 CERTIFIED ⇒ F2 UNLOCKED). Sin commit/push/PR/merge.
+VALIDATION PASS + BLOCKERS 0 + HUMAN REVIEW + FINAL HUMAN DECISION
+(PR #80) → F1 CERTIFIED → F2 UNLOCKED. Sin commit/push/PR/merge
+en este acto (flujo humano posterior).

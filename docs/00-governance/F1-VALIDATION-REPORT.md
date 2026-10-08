@@ -1,10 +1,9 @@
 # F1-VALIDATION-REPORT — Informe consolidado de F1 Rules
 
 F1-S13 · 2026-10-04 · Rama `operativo` · Estado: VALIDATION PASS →
-HUMAN REVIEW → FINAL HUMAN DECISION (certificación explícita
-pendiente, no automática).
+HUMAN REVIEW → FINAL HUMAN DECISION registrada (PR #80).
 
-## Cadena certificada (pendiente decisión final)
+## Cadena certificada (decisión final registrada)
 
 ```text
 F1-S1 (contrato/taxonomía) → F1-S2 (conducta, 11) → F1-S3 (contexto, 10)
@@ -15,8 +14,9 @@ F1-S1 (contrato/taxonomía) → F1-S2 (conducta, 11) → F1-S3 (contexto, 10)
 ```
 
 116 Rules, PROPOSED v0.1, 20/20 campos, 0 ACTIVE/APPROVED/CERTIFIED.
-Merges #57–#59, #61, #72–#79 verificados; árbol limpio salvo estos
-2 artefactos untracked.
+Merges #57–#59, #61, #72–#79 verificados; artefactos S13 integrados
+(la mención histórica a "untracked" describía el estado previo a la
+integración).
 
 ## Resultados
 
@@ -29,7 +29,16 @@ excepciones controladas; escenarios S01–S10 10/10 PASS.
 
 ## Warnings (4, documentados) y blockers (0)
 
-Ver `F1-S13-VALIDATION.md`. Sin commit/push/PR/merge (flujo humano).
+Ver `F1-S13-VALIDATION.md` (W3/W4 resueltas: integración y decisión
+registradas). Sin commit/push/PR/merge en este acto (flujo humano
+posterior).
+
+## Certificación registrada
+
+PR `#80 — F1: Certification and Closure of Rules Phase`:
+*"F1 Rules is formally CERTIFIED."* Commit `0faf3b8`, merge
+`8bf2cff`. Alcance normativo-documental; Rules en PROPOSED;
+`F1 CERTIFIED ≠ FACTORY COMPLETE`.
 
 ## Significado (§37)
 
