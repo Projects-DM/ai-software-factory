@@ -5,4 +5,4 @@ Este índice es descubrimiento, no norma; Git es historial.
 
 | Skill ID | Name | Capability | Version | Status | Domain |
 |----------|------|------------|---------|--------|--------|
-| — | (sin Skills registradas; primera materialización en su sprint) | — | — | — | — |
+| SK-ANL-001 | Analysis | Análisis previo a la acción | v0.1 | PROPOSED | analysis |
